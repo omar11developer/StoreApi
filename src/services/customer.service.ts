@@ -29,6 +29,7 @@ export class CustomerService {
       ...data,
     };
     this.customers.push(newCustomer);
+    return newCustomer;
   }
   update(id: number, data: UpdateCustomer) {
     const customer = this.findOne(id);

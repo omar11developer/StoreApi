@@ -39,7 +39,7 @@ export class UserService {
         ...user,
         ...data,
       };
-      return user;
+      return this.users[index];
     }
     return null;
   }

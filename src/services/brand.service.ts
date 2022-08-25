@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Brand } from '../entities/brand.entity';
-
+import { BrandCreateDto, UpdateBrandDto } from '../dtos/brands.dtos';
 @Injectable()
 export class BrandService {
-  private counterId = 1;
+  private counterIdBrand = 1;
   private brands: Brand[] = [
     {
       id: 1,
@@ -22,16 +22,16 @@ export class BrandService {
     }
     return brand;
   }
-  create(payload: any) {
-    this.counterId = this.counterId + 1;
+  create(payload: BrandCreateDto) {
+    this.counterIdBrand = this.counterIdBrand + 1;
     const newBrand = {
-      id: this.counterId,
+      id: this.counterIdBrand,
       ...payload,
     };
     this.brands.push(newBrand);
     return newBrand;
   }
-  update(id: number, payload: any) {
+  update(id: number, payload: UpdateBrandDto) {
     const brand = this.findOne(id);
     if (brand) {
       const index = this.brands.findIndex((item) => item.id === id);

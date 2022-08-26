@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNumber, IsUrl, IsNotEmpty} from 'class-validator';
+import { IsString,  IsUrl, IsNotEmpty} from 'class-validator';
 import {PartialType} from '@nestjs/mapped-types';
 export class BrandCreateDto {
   @IsString()

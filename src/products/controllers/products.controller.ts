@@ -8,8 +8,9 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ParseIntPipe } from '../common/parse-int.pipe';
+
 import { ProductService } from '../services/product.service';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
 

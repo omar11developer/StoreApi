@@ -10,6 +10,6 @@ export class AppService {
   getHello(): string {
     const apiKey = this.configService.apiKey;
     const name = this.configService.database.name;
-    return `Hello wordl! ${apiKey} ${name}`;
+    return `Hello ${apiKey} ${name}`;
   }
 }

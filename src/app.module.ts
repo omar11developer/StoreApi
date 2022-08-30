@@ -8,6 +8,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { DatabaseModule } from './database/database.module';
 
 import { enviroments } from './enviroments';
+import config from './config';
 @Module({
   imports: [
     UsersModule,
@@ -16,6 +17,7 @@ import { enviroments } from './enviroments';
     DatabaseModule,
     ConfigModule.forRoot({
       envFilePath: enviroments[process.env.NODE_ENV] || '.env',
+      load: [config],
       isGlobal: true,
     }),
   ],

@@ -8,8 +8,11 @@ import {
   Delete,
   ParseIntPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { CategoryService } from '../services/category.service';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/categories.dtos';
+@ApiTags('Category')
 @Controller('categories')
 export class CategoriesController {
   constructor(private categoryServices: CategoryService) {}

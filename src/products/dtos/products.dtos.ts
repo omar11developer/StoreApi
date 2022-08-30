@@ -1,5 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNumber, IsUrl, IsNotEmpty,  IsPositive } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsUrl,
+  IsNotEmpty,
+  IsPositive,
+} from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class CreateProductDto {
   @ApiProperty()

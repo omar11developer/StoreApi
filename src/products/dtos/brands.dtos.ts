@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString,  IsUrl, IsNotEmpty} from 'class-validator';
+import { IsString, IsUrl, IsNotEmpty } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class BrandCreateDto {
   @ApiProperty()
@@ -12,4 +12,4 @@ export class BrandCreateDto {
   readonly image: string;
 }
 
-export class UpdateBrandDto extends PartialType(BrandCreateDto) {};
+export class UpdateBrandDto extends PartialType(BrandCreateDto) {}

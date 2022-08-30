@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
-import {IsString, IsNotEmpty, IsEmail} from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class CreateUserDtos {
   @ApiProperty()
   @IsEmail()
   @IsNotEmpty()
-  email:string;
+  email: string;
   @ApiProperty()
   @IsString()
   @IsNotEmpty()

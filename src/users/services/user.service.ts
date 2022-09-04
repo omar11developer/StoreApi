@@ -1,7 +1,7 @@
 import { ProductService } from './../../products/services/product.service';
 import { ConfigService } from '@nestjs/config';
 import { Order } from './../entities/order.entity';
-import { Injectable, NotFoundException, Inject } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { CreateUserDtos, UpdateUserDtos } from '../dtos/users.dtos';
 

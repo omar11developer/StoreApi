@@ -22,11 +22,11 @@ export class CategoriesController {
     return this.categoryServices.findAll();
   }
   @Get(':id')
-  getOneCategory(@Param('id', ParseIntPipe) id: number) {
+  getOneCategory(@Param('id') id: string) {
     return this.categoryServices.findOne(id);
   }
 
-  @Post()
+  /*  @Post()
   create(@Body() payload: CreateCategoryDto) {
     return this.categoryServices.create(payload);
   }
@@ -43,5 +43,5 @@ export class CategoriesController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.categoryServices.delete(id);
-  }
+  } */
 }

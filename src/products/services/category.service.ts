@@ -1,26 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Category } from '../entities/category.entity';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/categories.dtos';
+
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 @Injectable()
 export class CategoryService {
-  private counterId = 1;
-  private categories: Category[] = [
-    {
-      id: 1,
-      name: 'Electronic',
-    },
-  ];
+  constructor(
+    @InjectModel(Category.name) private categoryModel: Model<Category>,
+  ) {}
+
   findAll() {
-    return this.categories;
+    return this.categoryModel.find().exec();
   }
-  findOne(id: number) {
-    const category = this.categories.find((item) => item.id === id);
+  async findOne(id: string) {
+    const category = await this.categoryModel.findById(id);
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
     }
     return category;
   }
-  create(payload: CreateCategoryDto) {
+  /* create(payload: CreateCategoryDto) {
     this.counterId = this.counterId + 1;
     const newCategory = {
       id: this.counterId,
@@ -48,5 +49,5 @@ export class CategoryService {
       return this.categories[index];
     }
     return null;
-  }
+  } */
 }

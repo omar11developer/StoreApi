@@ -27,10 +27,10 @@ export class ProductsController {
   }
 
   @Get(':productId')
-  getProduct(@Param('productId', ParseIntPipe) productId: number) {
+  getProduct(@Param('productId') productId: string) {
     return this.productsService.findOne(productId);
   }
-  @Post()
+  /* @Post()
   create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
   }
@@ -44,5 +44,5 @@ export class ProductsController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.delete(id);
-  }
+  } */
 }

@@ -11,6 +11,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { MongoIdPipe } from './../../common/mongo-id.pipe';
 
 import { ProductService } from '../services/product.service';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
@@ -27,22 +28,19 @@ export class ProductsController {
   }
 
   @Get(':productId')
-  getProduct(@Param('productId') productId: string) {
+  getProduct(@Param('productId', MongoIdPipe) productId: string) {
     return this.productsService.findOne(productId);
   }
-  /* @Post()
+  @Post()
   create(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
   }
   @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateProductDto,
-  ) {
-    return this.productsService.update(id, payload);
+  update(@Param('id', MongoIdPipe) id: string, @Body() data: UpdateProductDto) {
+    return this.productsService.update(id, data);
   }
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', MongoIdPipe) id: string) {
     return this.productsService.delete(id);
-  } */
+  }
 }

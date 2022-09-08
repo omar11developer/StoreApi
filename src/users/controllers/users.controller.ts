@@ -45,7 +45,7 @@ export class UsersController {
   } */
   @Get(':id/orders')
   @ApiOperation({ summary: 'List a user with your orders' })
-  getOrders(@Param('id', ParseIntPipe) id: number) {
+  getOrders(@Param('id', ParseIntPipe) id: string) {
     return this.usersServices.getOrdersByUser(id);
   }
 }

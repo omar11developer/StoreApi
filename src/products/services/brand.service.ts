@@ -19,33 +19,24 @@ export class BrandService {
     }
     return brand;
   }
-  /* create(payload: BrandCreateDto) {
-    this.counterIdBrand = this.counterIdBrand + 1;
-    const newBrand = {
-      id: this.counterIdBrand,
-      ...payload,
-    };
-    this.brands.push(newBrand);
-    return newBrand;
+  create(data: BrandCreateDto) {
+    const newBrand = new this.brandModel(data);
+    return newBrand.save();
   }
-  update(id: number, payload: UpdateBrandDto) {
-    const brand = this.findOne(id);
-    if (brand) {
-      const index = this.brands.findIndex((item) => item.id === id);
-      this.brands[index] = {
-        ...brand,
-        ...payload,
-      };
-      return this.brands[index];
+  update(id: string, data: UpdateBrandDto) {
+    const brand = this.brandModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!brand) {
+      throw new NotFoundException(`Brand ${id} not found`);
     }
-    return null;
+    return brand;
   }
-  delete(id: number) {
-    const index = this.brands.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Brand #${id} not found`);
+  delete(id: string) {
+    const brand = this.brandModel.findByIdAndDelete(id);
+    if (!brand) {
+      throw new NotFoundException(`Brand ${id} not found`);
     }
-    this.brands.splice(index, 1);
     return true;
-  } */
+  }
 }

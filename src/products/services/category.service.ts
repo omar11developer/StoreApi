@@ -21,33 +21,24 @@ export class CategoryService {
     }
     return category;
   }
-  /* create(payload: CreateCategoryDto) {
-    this.counterId = this.counterId + 1;
-    const newCategory = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.categories.push(newCategory);
-    return newCategory;
+  create(data: CreateCategoryDto) {
+    const newCategory = new this.categoryModel(data);
+    return newCategory.save();
   }
-  delete(id: number) {
-    const index = this.categories.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Category not found`);
+  delete(id: string) {
+    const category = this.categoryModel.findByIdAndDelete(id);
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`);
     }
-    this.categories.splice(index, 1);
     return true;
   }
-  update(id: number, payload: UpdateCategoryDto) {
-    const category = this.findOne(id);
-    const index = this.categories.findIndex((item) => item.id === id);
-    if (category) {
-      this.categories[index] = {
-        ...category,
-        ...payload,
-      };
-      return this.categories[index];
+  update(id: number, data: UpdateCategoryDto) {
+    const category = this.categoryModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!category) {
+      throw new NotFoundException(`Category #${id} not found`);
     }
-    return null;
-  } */
+    return category;
+  }
 }

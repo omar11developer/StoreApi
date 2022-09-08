@@ -1,28 +1,25 @@
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDtos, UpdateCustomer } from '../dtos/customer.dtos';
 import { Customer } from '../entities/customer.entity';
 @Injectable()
 export class CustomerService {
-  private counterId = 1;
-  private customers: Customer[] = [
-    {
-      id: 1,
-      name: 'Omar',
-      lastName: 'Menjivar',
-      phone: '2143-2343',
-    },
-  ];
+  constructor(
+    @InjectModel(Customer.name) private customerModel: Model<Customer>,
+  ) {}
   findAll() {
-    return this.customers;
+    return this.customerModel.find();
   }
-  findOne(id: number) {
-    const customer = this.customers.find((item) => item.id === id);
+  async findOne(id: string) {
+    const customer = await this.customerModel.findById(id);
     if (!customer) {
       throw new NotFoundException(`Customer #${id} not found`);
     }
     return customer;
   }
-  create(data: CreateCustomerDtos) {
+  /* create(data: CreateCustomerDtos) {
     this.counterId = this.counterId + 1;
     const newCustomer = {
       id: this.counterId,
@@ -50,5 +47,5 @@ export class CustomerService {
     }
     this.customers.splice(index, 1);
     return true;
-  }
+  } */
 }

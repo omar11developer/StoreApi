@@ -21,10 +21,10 @@ export class BrandsController {
     return this.brandServices.findAll();
   }
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
+  getOne(@Param('id') id: string) {
     return this.brandServices.findOne(id);
   }
-  @Post()
+  /* @Post()
   create(@Body() payload: BrandCreateDto) {
     return this.brandServices.create(payload);
   }
@@ -40,5 +40,5 @@ export class BrandsController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.brandServices.delete(id);
-  }
+  } */
 }

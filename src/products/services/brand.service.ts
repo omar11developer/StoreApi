@@ -1,28 +1,25 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Brand } from '../entities/brand.entity';
 import { BrandCreateDto, UpdateBrandDto } from '../dtos/brands.dtos';
+
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 @Injectable()
 export class BrandService {
-  private counterIdBrand = 1;
-  private brands: Brand[] = [
-    {
-      id: 1,
-      name: 'Asus',
-      image: '',
-    },
-  ];
+  constructor(@InjectModel(Brand.name) private brandModel: Model<Brand>) {}
 
   findAll() {
-    return this.brands;
+    return this.brandModel.find();
   }
-  findOne(id: number) {
-    const brand = this.brands.find((item) => item.id === id);
+  findOne(id: string) {
+    const brand = this.brandModel.findById(id);
     if (!brand) {
       throw new NotFoundException(`Brand ${id} not found`);
     }
     return brand;
   }
-  create(payload: BrandCreateDto) {
+  /* create(payload: BrandCreateDto) {
     this.counterIdBrand = this.counterIdBrand + 1;
     const newBrand = {
       id: this.counterIdBrand,
@@ -50,5 +47,5 @@ export class BrandService {
     }
     this.brands.splice(index, 1);
     return true;
-  }
+  } */
 }

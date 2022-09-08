@@ -6,7 +6,6 @@ import {
   Param,
   Put,
   Delete,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MongoIdPipe } from '../../common/mongo-id.pipe';

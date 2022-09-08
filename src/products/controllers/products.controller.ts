@@ -8,7 +8,6 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MongoIdPipe } from './../../common/mongo-id.pipe';

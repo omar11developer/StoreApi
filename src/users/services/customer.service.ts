@@ -19,33 +19,24 @@ export class CustomerService {
     }
     return customer;
   }
-  /* create(data: CreateCustomerDtos) {
-    this.counterId = this.counterId + 1;
-    const newCustomer = {
-      id: this.counterId,
-      ...data,
-    };
-    this.customers.push(newCustomer);
-    return newCustomer;
+  create(data: CreateCustomerDtos) {
+    const newCustomer = new this.customerModel(data);
+    return newCustomer.save();
   }
-  update(id: number, data: UpdateCustomer) {
-    const customer = this.findOne(id);
-    if (customer) {
-      const index = this.customers.findIndex((item) => item.id === id);
-      this.customers[index] = {
-        ...customer,
-        ...data,
-      };
-      return this.customers[index];
+  update(id: string, data: UpdateCustomer) {
+    const customer = this.customerModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!customer) {
+      throw new NotFoundException(`User #${id} not found`);
     }
-    return null;
+    return customer;
   }
-  delete(id: number) {
-    const index = this.customers.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Customer #${id} not found`);
+  delete(id: string) {
+    const customer = this.customerModel.findByIdAndDelete(id);
+    if (!customer) {
+      throw new NotFoundException(`User #${id} not found`);
     }
-    this.customers.splice(index, 1);
-    return true;
-  } */
+    return customer;
+  }
 }

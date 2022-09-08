@@ -29,35 +29,27 @@ export class UserService {
     }
     return user;
   }
-  /* create(data: CreateUserDtos) {
-    this.counterId = this.counterId + 1;
-    const newUser = {
-      id: this.counterId,
-      ...data,
-    };
-    this.users.push(newUser);
-    return newUser;
+  create(data: CreateUserDtos) {
+    const newUser = new this.userModel(data);
+    return newUser.save();
   }
-  update(id: number, data: UpdateUserDtos) {
-    const user = this.findOne(id);
-    if (user) {
-      const index = this.users.findIndex((item) => item.id === id);
-      this.users[index] = {
-        ...user,
-        ...data,
-      };
-      return this.users[index];
-    }
-    return null;
-  }
-  delete(id: number) {
-    const index = this.users.findIndex((item) => item.id === id);
-    if (index === -1) {
+  update(id: string, data: UpdateUserDtos) {
+    const user = this.userModel
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }
-    this.users.splice(index, 1);
+    return user;
+  }
+  delete(id: string) {
+    const user = this.userModel.findByIdAndDelete(id);
+    if (!user) {
+      throw new NotFoundException(`User #${id} not found`);
+    }
     return true;
-  } */
+  }
+
   async getOrdersByUser(id: string) {
     const user = this.findOne(id);
     return {

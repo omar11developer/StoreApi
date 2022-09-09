@@ -37,6 +37,6 @@ export class BrandService {
     if (!brand) {
       throw new NotFoundException(`Brand ${id} not found`);
     }
-    return true;
+    return brand;
   }
 }

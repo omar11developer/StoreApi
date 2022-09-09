@@ -43,11 +43,7 @@ export class UserService {
     return user;
   }
   delete(id: string) {
-    const user = this.userModel.findByIdAndDelete(id);
-    if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
-    }
-    return true;
+    return this.userModel.findByIdAndDelete(id);
   }
 
   async getOrdersByUser(id: string) {

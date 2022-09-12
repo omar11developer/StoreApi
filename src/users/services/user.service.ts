@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { ProductService } from './../../products/services/product.service';
@@ -6,7 +6,11 @@ import { ConfigService } from '@nestjs/config';
 import { Order } from './../entities/order.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../entities/user.entity';
-import { CreateUserDtos, UpdateUserDtos } from '../dtos/users.dtos';
+import {
+  CreateUserDtos,
+  UpdateUserDtos,
+  FillterUsers,
+} from '../dtos/users.dtos';
 
 @Injectable()
 export class UserService {
@@ -16,11 +20,19 @@ export class UserService {
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
 
-  findAll() {
-    const apiKey = this.configService.get('API_KEY');
+  findAll(params?: FillterUsers) {
+    if (params) {
+      const filters: FilterQuery<User> = {};
+      const { rol } = params;
+      if (rol) {
+        filters.role = rol;
+      }
+      return this.userModel.find(filters).exec();
+    }
+    /* const apiKey = this.configService.get('API_KEY');
     const dbName = this.configService.get('DATABASE_NAME');
-    console.log(`Our api key is: ${apiKey} and our data base is: ${dbName} `);
-    return this.userModel.find();
+    console.log(`Our api key is: ${apiKey} and our data base is: ${dbName} `); */
+    return this.userModel.find().exec();
   }
   async findOne(id: string) {
     const user = await this.userModel.findById(id);

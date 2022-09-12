@@ -8,12 +8,18 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MongoIdPipe } from './../../common/mongo-id.pipe';
 
 import { ProductService } from '../services/product.service';
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+  FillterProductsDto,
+} from '../dtos/products.dtos';
+
 
 @ApiTags('Products')
 @Controller('products')
@@ -22,8 +28,8 @@ export class ProductsController {
 
   @Get()
   @HttpCode(HttpStatus.ACCEPTED)
-  getProducts() {
-    return this.productsService.findAll();
+  getProducts(@Query() params: FillterProductsDto) {
+    return this.productsService.findAll(params);
   }
 
   @Get(':productId')

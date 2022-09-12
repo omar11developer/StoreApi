@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class CreateUserDtos {
   @ApiProperty()
@@ -17,3 +17,8 @@ export class CreateUserDtos {
 }
 
 export class UpdateUserDtos extends PartialType(CreateUserDtos) {}
+
+export class FillterUsers {
+  @IsOptional()
+  rol: string;
+}

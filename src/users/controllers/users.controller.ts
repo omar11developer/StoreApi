@@ -6,11 +6,16 @@ import {
   Put,
   Delete,
   Param,
+  Query,
 } from '@nestjs/common';
 import { MongoIdPipe } from '../../common/mongo-id.pipe';
 
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { CreateUserDtos, UpdateUserDtos } from '../dtos/users.dtos';
+import {
+  CreateUserDtos,
+  UpdateUserDtos,
+  FillterUsers,
+} from '../dtos/users.dtos';
 import { UserService } from '../services/user.service';
 @ApiTags('Users')
 @Controller('users')
@@ -18,8 +23,8 @@ export class UsersController {
   constructor(private usersServices: UserService) {}
   @Get()
   @ApiOperation({ summary: 'List of users' })
-  getUsers() {
-    return this.usersServices.findAll();
+  getUsers(@Query() params: FillterUsers) {
+    return this.usersServices.findAll(params);
   }
   @ApiOperation({ summary: 'List a user' })
   @Get(':id')

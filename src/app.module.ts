@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { MongoClient } from 'mongodb';
 
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -13,8 +12,6 @@ import { DatabaseModule } from './database/database.module';
 
 import { enviroments } from './enviroments';
 import config from './config';
-
-
 
 const uri = 'mongodb://root:root@localhost:27017/?authMechanism=DEFAULT';
 const client = new MongoClient(uri);

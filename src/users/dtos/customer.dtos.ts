@@ -1,19 +1,24 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsArray } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class CreateCustomerDtos {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  name: string;
+  readonly name: string;
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  lastName: string;
+  readonly lastName: string;
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  phone: string;
+  readonly phone: string;
+
+  @IsArray()
+  @IsNotEmpty()
+  readonly skills: any;
+
 }
 
 export class UpdateCustomer extends PartialType(CreateCustomerDtos) {}

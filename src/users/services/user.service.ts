@@ -1,5 +1,6 @@
 import { Model, FilterQuery } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
 
 import { ProductService } from './../../products/services/product.service';
 import { ConfigService } from '@nestjs/config';
@@ -41,9 +42,16 @@ export class UserService {
     }
     return user;
   }
-  create(data: CreateUserDtos) {
+  async create(data: CreateUserDtos) {
     const newUser = new this.userModel(data);
-    return newUser.save();
+    const hashPassword = await bcrypt.hash(newUser.password, 10);
+    newUser.password = hashPassword;
+    const model = await newUser.save();
+    const { password, ...rta } = model.toJSON();
+    return rta;
+  }
+  findByEmail(email: string) {
+    return this.userModel.findOne({ email }).exec();
   }
   update(id: string, data: UpdateUserDtos) {
     const user = this.userModel

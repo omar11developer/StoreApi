@@ -11,6 +11,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { DatabaseModule } from './database/database.module';
 
 import { enviroments } from './enviroments';
+import { AuthModule } from './auth/auth.module';
 import config from './config';
 
 const uri = 'mongodb://root:root@localhost:27017/?authMechanism=DEFAULT';
@@ -35,11 +36,13 @@ run();
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
+        API_KEY: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
       }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

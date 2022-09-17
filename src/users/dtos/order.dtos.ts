@@ -24,6 +24,7 @@ export class UpdateOrderDto extends PartialType(
 ) {}
 
 export class AddProductsToOrderDto {
+  @ApiProperty()
   @IsArray()
   @IsNotEmpty()
   readonly productsIds: string[];
